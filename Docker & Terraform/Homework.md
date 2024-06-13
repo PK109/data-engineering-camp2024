@@ -45,6 +45,7 @@ You will also need the dataset with zones:
 
 Download this data and put it into Postgres (with jupyter notebooks or with a pipeline)
 
+Upload performed with `upload_data.ipynb`
 
 ## Question 3. Count records 
 
