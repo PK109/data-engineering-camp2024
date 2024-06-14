@@ -56,10 +56,18 @@ Tip: started and finished on 2019-09-18.
 Remember that `lpep_pickup_datetime` and `lpep_dropoff_datetime` columns are in the format timestamp (date and hour+min+sec) and not in date.
 
 - 15767
-- 15612
+- **15612**
 - 15859
 - 89009
-
+```
+SELECT 
+	COUNT(0)
+FROM
+	green_taxi_data
+WHERE
+	DATE(lpep_pickup_datetime) = '2019-09-18' 
+		AND DATE(lpep_dropoff_datetime) = '2019-09-18'
+```
 ## Question 4. Longest trip for each day
 
 Which was the pick up day with the longest trip distance?
@@ -69,22 +77,41 @@ Tip: For every trip on a single day, we only care about the trip with the longes
 
 - 2019-09-18
 - 2019-09-16
-- 2019-09-26
+- **2019-09-26**
 - 2019-09-21
 
-
+```
+SELECT
+	DATE(lpep_pickup_datetime)
+FROM 
+	green_taxi_data
+WHERE
+	trip_distance = (SELECT
+						 MAX(trip_distance)
+					  FROM
+						 green_taxi_data)
+```
 ## Question 5. Three biggest pick up Boroughs
 
 Consider lpep_pickup_datetime in '2019-09-18' and ignoring Borough has Unknown
 
 Which were the 3 pick up Boroughs that had a sum of total_amount superior to 50000?
  
-- "Brooklyn" "Manhattan" "Queens"
+- **"Brooklyn" "Manhattan" "Queens"**
 - "Bronx" "Brooklyn" "Manhattan"
 - "Bronx" "Manhattan" "Queens" 
 - "Brooklyn" "Queens" "Staten Island"
-
-
+```
+SELECT z."Borough"
+FROM public.green_taxi_data as td
+	JOIN public.zones as z ON td."PULocationID" = z."LocationID" 
+WHERE
+	DATE(lpep_pickup_datetime) = '2019-09-18'
+GROUP BY
+	z."Borough"
+HAVING
+	SUM(total_amount)> 50000
+```
 ## Question 6. Largest tip
 
 For the passengers picked up in September 2019 in the zone name Astoria which was the drop off zone that had the largest tip?
@@ -94,10 +121,31 @@ Note: it's not a typo, it's `tip` , not `trip`
 
 - Central Park
 - Jamaica
-- JFK Airport
+- **JFK Airport**
 - Long Island City/Queens Plaza
 
-
+```
+SELECT 
+	z."Zone", td.tip_amount, td."PULocationID" 
+FROM 
+	public.green_taxi_data as td
+	JOIN public.zones as z 
+		ON td."DOLocationID" = z."LocationID" 
+WHERE
+	date_trunc('month', DATE(lpep_pickup_datetime)) = '2019-09-01'
+	AND td."PULocationID" = 
+		( 
+		SELECT
+			"LocationID"
+		FROM 
+			zones
+		WHERE
+			"Zone" = 'Astoria'
+		)
+ORDER BY
+	td.tip_amount DESC
+LIMIT 1
+```
 
 ## Terraform
 
@@ -119,7 +167,14 @@ terraform apply
 ```
 
 Paste the output of this command into the homework submission form.
+```
+google_bigquery_dataset.demo_dataset: Creating...
+google_storage_bucket.demo-bucket: Creating...
+google_storage_bucket.demo-bucket: Creation complete after 2s [id=lateral-attic-426206-c4-terra-bucket]
+google_bigquery_dataset.demo_dataset: Creation complete after 2s [id=projects/lateral-attic-426206-c4/datasets/demo_dataset]
 
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+```
 
 ## Submitting the solutions
 
