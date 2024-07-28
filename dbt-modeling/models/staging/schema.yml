@@ -11,23 +11,37 @@ sources:
 
 models:
   - name: stg_yellow_trip_data
-    description: ""
+    description: "Trips made by New York City's iconic yellow taxis. 
+        Yellow taxis are the only vehicles permitted to respond to a street hail from a passenger in all five
+        boroughs. They may also be hailed using an e-hail app like Curb or Arro.
+        The records were collected and provided to the NYC Taxi and Limousine Commission (TLC) by
+        technology service providers. "
     columns:
       - name: tripid
         data_type: string
-        description: ""
+        description: "Primary key for this table, generated with a concatenation of vendorid+pickup_datetime"
 
       - name: vendorid
         data_type: int64
-        description: ""
+        description: > 
+                A code indicating the TPEP provider that provided the record.
+                1= Creative Mobile Technologies, LLC; 
+                2= VeriFone Inc.
 
       - name: ratecodeid
         data_type: int64
-        description: ""
+        description: >
+                The final rate code in effect at the end of the trip.
+                  1= Standard rate
+                  2=JFK
+                  3=Newark
+                  4=Nassau or Westchester
+                  5=Negotiated fare
+                  6=Group ride
 
       - name: pickup_locationid
         data_type: int64
-        description: ""
+        description: "locationid where the meter was engaged."
         data_tests:
           - relationships:
               to: ref('taxi_zones_lookup')
@@ -36,7 +50,7 @@ models:
 
       - name: dropoff_locationid
         data_type: int64
-        description: ""
+        description: "locationid where the meter was disengaged"
         data_tests:
           - relationships:
               to: ref('taxi_zones_lookup')
@@ -45,11 +59,11 @@ models:
 
       - name: pickup_datetime
         data_type: timestamp
-        description: ""
+        description: "The date and time when the meter was engaged."
 
       - name: dropoff_datetime
         data_type: timestamp
-        description: ""
+        description: "The date and time when the meter was disengaged."
 
       - name: store_and_fwd_flag
         data_type: string
@@ -57,11 +71,11 @@ models:
 
       - name: passenger_count
         data_type: int64
-        description: ""
+        description: "The number of passengers in the vehicle. This is a driver-entered value."
 
       - name: trip_distance
         data_type: numeric
-        description: ""
+        description: "The elapsed trip distance in miles reported by the taximeter."
 
       - name: trip_type
         data_type: int64
