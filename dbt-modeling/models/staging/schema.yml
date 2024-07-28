@@ -109,11 +109,15 @@ models:
 
 
   - name: stg_green_trip_data
-    description: ""
+    description: "Trip made by green taxis, also known as boro taxis and street-hail liveries.
+        Green taxis may respond to street hails,but only in the areas indicated in green on the
+        map (i.e. above W 110 St/E 96th St in Manhattan and in the boroughs).
+        The records were collected and provided to the NYC Taxi and Limousine Commission (TLC) by
+        technology service providers."
     columns:
       - name: tripid
         data_type: string
-        description: ""
+        description: "Primary key for this table, generated with a concatenation of vendorid+pickup_datetime"
         data_tests:
           - unique:
               severity: warn
@@ -122,15 +126,24 @@ models:
 
       - name: vendorid
         data_type: int64
-        description: ""
+        description: "A code indicating the TPEP provider that provided the record.
+                1= Creative Mobile Technologies, LLC; 
+                2= VeriFone Inc."
 
       - name: ratecodeid
         data_type: int64
-        description: ""
+        description: >
+                The final rate code in effect at the end of the trip.
+                  1= Standard rate
+                  2=JFK
+                  3=Newark
+                  4=Nassau or Westchester
+                  5=Negotiated fare
+                  6=Group ride
 
       - name: pickup_locationid
         data_type: int64
-        description: ""
+        description: "locationid where the meter was engaged."
         data_tests:
           - relationships:
               to: ref('taxi_zones_lookup')
@@ -139,7 +152,7 @@ models:
 
       - name: dropoff_locationid
         data_type: int64
-        description: ""
+        description: "locationid where the meter was engaged."
         data_tests:
           - relationships:
               to: ref('taxi_zones_lookup')
