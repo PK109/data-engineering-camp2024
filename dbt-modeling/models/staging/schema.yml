@@ -28,10 +28,20 @@ models:
       - name: pickup_locationid
         data_type: int64
         description: ""
+        data_tests:
+          - relationships:
+              to: ref('taxi_zones_lookup')
+              field: locationid
+              severity: warn
 
       - name: dropoff_locationid
         data_type: int64
         description: ""
+        data_tests:
+          - relationships:
+              to: ref('taxi_zones_lookup')
+              field: locationid
+              severity: warn
 
       - name: pickup_datetime
         data_type: timestamp
@@ -123,7 +133,7 @@ models:
         description: ""
         data_tests:
           - relationships:
-              to: ref('seeds/taxi_zone_lookup')
+              to: ref('taxi_zones_lookup')
               field: locationid
               severity: warn
 
@@ -132,7 +142,7 @@ models:
         description: ""
         data_tests:
           - relationships:
-              to: ref('seeds/taxi_zone_lookup')
+              to: ref('taxi_zones_lookup')
               field: locationid
               severity: warn
 
