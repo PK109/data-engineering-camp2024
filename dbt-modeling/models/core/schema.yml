@@ -66,27 +66,6 @@ models:
         data_type: numeric
         description: ""
         
-  - name: dim_zones
-    description: >
-      List of unique zones idefied by locationid. 
-      Includes the service zone they correspond to (Green or yellow).
-    columns:
-      - name: locationid
-        data_type: int64
-        description: ""
-
-      - name: borough
-        data_type: string
-        description: ""
-
-      - name: zone
-        data_type: string
-        description: ""
-
-      - name: service_zone
-        data_type: string
-        description: ""
-
   - name: fact_trips
     description: >
       Taxi trips corresponding to both service zones (Green and yellow).
@@ -194,5 +173,69 @@ models:
         description: ""
 
       - name: payment_type_description
+        data_type: string
+        description: ""
+
+  - name: fact_fhv_trips
+    description: ""
+    columns:
+      - name: tripid
+        data_type: string
+        description: ""
+
+      - name: dispatching_base_num
+        data_type: string
+        description: ""
+
+      - name: pickup_datetime
+        data_type: datetime
+        description: ""
+
+      - name: dropoff_datetime
+        data_type: timestamp
+        description: ""
+
+      - name: pulocationid
+        data_type: int64
+        description: ""
+
+      - name: dolocationid
+        data_type: int64
+        description: ""
+
+      - name: sr_flag
+        data_type: int64
+        description: ""
+
+      - name: affiliated_base_number
+        data_type: string
+        description: ""
+
+      - name: pickup_borough
+        data_type: string
+        description: ""
+
+      - name: dropoff_borough
+        data_type: string
+        description: ""
+
+  - name: dim_zones
+    description: >
+      List of unique zones idefied by locationid. 
+      Includes the service zone they correspond to (Green or yellow).
+    columns:
+      - name: locationid
+        data_type: int64
+        description: ""
+
+      - name: borough
+        data_type: string
+        description: ""
+
+      - name: zone
+        data_type: string
+        description: ""
+
+      - name: service_zone
         data_type: string
         description: ""
