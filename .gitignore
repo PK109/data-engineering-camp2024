@@ -5,6 +5,7 @@
 *.tfstate
 *.tfstate.*
 
+
 # Crash log files
 crash.log
 crash.*.log
@@ -38,3 +39,13 @@ terraform.rc
 
 # Ignore all .json files, i.e. credentials
 *.json
+
+# Ignore installed folders for spark and jdk
+jdk*
+spark-3.3.2*
+
+# Ignore data files
+*.parquet
+*.parquet.crc
+*.csv.gz
+*.csv
