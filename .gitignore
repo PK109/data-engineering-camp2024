@@ -37,9 +37,9 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# Ignore all .json files, i.e. credentials
+# Ignore all .json and other confidential files, i.e. credentials
 *.json
-
+*.env
 # Ignore installed folders for spark and jdk
 jdk*
 spark-3.3.2*
