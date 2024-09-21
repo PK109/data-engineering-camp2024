@@ -1,6 +1,6 @@
 # Data Engineering Course Highlights 🚀
 
-Welcome to my repository! This space showcases the key skills and concepts I learned during an intensive **Data Engineering** course. Below are the main areas of expertise I gained through hands-on practice with modern data engineering tools and techniques.
+Welcome to my DE repository! This space showcases the key skills and concepts I learned during an intensive **Data Engineering ZoomCamp** course provided by _DataTalks.Club_. Below are the main areas of expertise I gained through hands-on practice with these technologies.
 
 ## 🔑 Key Skills & Concepts
 
